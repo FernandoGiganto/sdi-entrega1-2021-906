@@ -1,11 +1,12 @@
 <!--nav.html -->
-<nav class="navbarnavbar-inverse">
+<nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#myNavbar">
-				<span class="icon-bar"> </span> <span class="icon-bar"> </span> <span
-					class="icon-bar"> </span>
+				<span class="icon-bar"> </span> 
+				<span class="icon-bar"> </span> 
+				<span class="icon-bar"> </span>
 			</button>
 			<img src="/img/student-48.png" alt="logo" />
 		</div>
@@ -14,16 +15,14 @@
 
 			<!-- Opciones del admin  -->
 
-			<ul class="navnavbar-nav">
+			<ul class="nav navbar-nav">
 				<li class="active">
 					<a href="/user/list" th:text="#{nav.admin.verUsuario.message}"></a>
 				</li>
-			</ul>
-
+			
 			<!-- Opciones del usuario -->
-
-			<ul class="nav navbar-nav">
-				<li class="active">
+	
+				<li>
 					<a href="/product/add" th:text="#{nav.user.nuevaOferta.message}"></a>
 				</li>
 				<li>
@@ -32,25 +31,25 @@
 				<li>
 					<a href="/product/bought" th:text="#{nav.user.ofertasCompradas.message}"></a>
 				</li>
+				
 			</ul>
-
 			<!-- Opciones registro, login,logout,cambio de idioma -->
 
-			<ul class="navnavbar-navnavbar-right">
+			<ul class="nav navbar-nav navbar-right">
 			
 				<li class="dropdown">
 					<a id="btnLanguage" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">
-					<span th:text="#{language.change}"></span><span class="caret"></span></a>
+					<span th:text="#{nav.idioma.message}"></span><span class="caret"></span></a>
 					
 					<ul id="languageDropdownMenuButton" class="dropdown-menu">
 						<li>
 							<a id="btnEnglish" value="EN"><img th:src="@{/img/if_uk_flag.png}"style="border: 0; float: left; margin-right: 15px"/>
-							<span th:text="#{language.en}">Inglés</span></a>
+							<span th:text="#{nav.idioma.en.message}">Inglés</span></a>
 						</li>
 						
 						<li>
 							<a id="btnSpanish"value="ES"><img th:src="@{/img/if_spain_flag.png}"style="border: 0; float: left; margin-right: 15px"/>
-							<span th:text="#{language.es}">Español</span></a>
+							<span th:text="#{nav.idioma.es.message}">Español</span></a>
 						</li>
 					</ul>
 				</li>
