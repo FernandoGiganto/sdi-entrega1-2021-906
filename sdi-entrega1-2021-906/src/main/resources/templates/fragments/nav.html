@@ -15,29 +15,55 @@
 			<!-- Opciones del admin  -->
 
 			<ul class="navnavbar-nav">
-				<li class="active"><a href="/user/list">Ver Usuarios</a></li>
+				<li class="active">
+					<a href="/user/list" th:text="#{nav.admin.verUsuario.message}"></a>
+				</li>
 			</ul>
 
 			<!-- Opciones del usuario -->
 
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/product/add">Nueva Oferta</a></li>
-				<li><a href="/product/list">Mis ofertas</a></li>
-				<li><a href="/product/bought">Ofertas compradas</a></li>
+				<li class="active">
+					<a href="/product/add" th:text="#{nav.user.nuevaOferta.message}"></a>
+				</li>
+				<li>
+					<a href="/product/list" th:text="#{nav.user.misOfertas.message}"></a>
+				</li>
+				<li>
+					<a href="/product/bought" th:text="#{nav.user.ofertasCompradas.message}"></a>
+				</li>
 			</ul>
 
-			<!-- Opciones registro, login,logout -->
+			<!-- Opciones registro, login,logout,cambio de idioma -->
 
 			<ul class="navnavbar-navnavbar-right">
-				<li><a href="/signup"> <span
-						class="glyphiconglyphicon-user"> </span>Registrate
-				</a></li>
-				<li><a href="/login"> <span
-						class="glyphiconglyphicon-log-in"> </span>Identifícate
-				</a></li>
-				<li><a href="/logout"> <span
-						class="glyphicon glyphicon-log-out"></span> Desconectar
-				</a></li>
+			
+				<li class="dropdown">
+					<a id="btnLanguage" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"aria-expanded="false">
+					<span th:text="#{language.change}"></span><span class="caret"></span></a>
+					
+					<ul id="languageDropdownMenuButton" class="dropdown-menu">
+						<li>
+							<a id="btnEnglish" value="EN"><img th:src="@{/img/if_uk_flag.png}"style="border: 0; float: left; margin-right: 15px"/>
+							<span th:text="#{language.en}">Inglés</span></a>
+						</li>
+						
+						<li>
+							<a id="btnSpanish"value="ES"><img th:src="@{/img/if_spain_flag.png}"style="border: 0; float: left; margin-right: 15px"/>
+							<span th:text="#{language.es}">Español</span></a>
+						</li>
+					</ul>
+				</li>
+			
+				<li>
+					<a href="/signup" th:text="#{nav.register.message}"> <span class="glyphiconglyphicon-user"> </span></a>
+				</li>
+				<li>
+					<a href="/login" th:text="#{nav.login.message}"> <span class="glyphiconglyphicon-log-in"> </span></a>
+				</li>
+				<li>	
+					<a href="/logout" th:text="#{nav.logout.message}"> <span class="glyphicon glyphicon-log-out"></span> </a>
+				</li>
 			</ul>
 		</div>
 	</div>
