@@ -17,9 +17,9 @@ public class User {
 	private String surname;
 	private String role;
 	
-	private String password;
-	@Transient // propiedad que no se almacena e la tabla.
-	private String passwordConfirm;
+//	private String password;
+//	@Transient // propiedad que no se almacena e la tabla.
+//	private String passwordConfirm;
 	
 	public User(String email,String name,String surname) {
 		super();
@@ -70,21 +70,21 @@ public class User {
 		this.role = role;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+//
+//	public String getPasswordConfirm() {
+//		return passwordConfirm;
+//	}
+//
+//	public void setPasswordConfirm(String passwordConfirm) {
+//		this.passwordConfirm = passwordConfirm;
+//	}
 	
 	public String getFullName() {
 		return this.name + " " + this.surname;
