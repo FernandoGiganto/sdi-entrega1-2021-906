@@ -2,13 +2,7 @@ package com.uniovi.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="user")
@@ -25,9 +19,9 @@ public class User {
 	private String surname;
 	private String role;
 	
-//	private String password;
-//	@Transient // propiedad que no se almacena e la tabla.
-//	private String passwordConfirm;
+	private String password;
+	@Transient // propiedad que no se almacena e la tabla.
+	private String passwordConfirm;
 	
 	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL)
 	private Set<Offer> offers;
@@ -81,21 +75,21 @@ public class User {
 		this.role = role;
 	}
 
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
-//
-//	public String getPasswordConfirm() {
-//		return passwordConfirm;
-//	}
-//
-//	public void setPasswordConfirm(String passwordConfirm) {
-//		this.passwordConfirm = passwordConfirm;
-//	}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 	
 	public String getFullName() {
 		return this.name + " " + this.surname;

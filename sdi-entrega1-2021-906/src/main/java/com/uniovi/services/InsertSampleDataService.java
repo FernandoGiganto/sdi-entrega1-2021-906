@@ -20,11 +20,17 @@ public class InsertSampleDataService {
 	@PostConstruct
 	public void init() {
 		User user1= new User("pedrodiaz@gmail.com", "Pedro", "Díaz");
+		user1.setPassword("123456");
 		User user2= new User("lucasnuñez@gmail.com", "Lucas", "Núñez");
+		user2.setPassword("123456");
 		User user3= new User("mariarodriguez@gmail.com", "María", "Rodríguez");
+		user3.setPassword("123456");
 		User user4= new User("martaalmonte@gmail.com", "Marta", "Almonte");
+		user4.setPassword("123456");
 		User user5= new User("pelayovaldes@gmail.com", "Pelayo", "Valdes");
-		User user6= new User("fernandogiganto@gmial.com", "Fernando", "Giganto");//ADMIN
+		user5.setPassword("123456");
+		User user6= new User("admin@gmail.com", "Fernando", "Giganto");
+		user6.setPassword("admin");
 		
 		Set user1Offers = new HashSet<Offer>() {
 			{
