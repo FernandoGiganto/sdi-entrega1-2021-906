@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Offer {
@@ -19,12 +21,24 @@ public class Offer {
 	private String discharge_date;
 	private double price;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	public Offer(String title,String description,double price) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.discharge_date = getFechaActual();
 		this.price = price;
+	}
+	
+	public Offer(String title,String description,double price,User user) {
+		super();
+		this.setTitle(title);
+		this.setDescription(description);
+		this.setPrice(price);
+		this.setUser(user);
 	}
 	
 	public Offer() {}
@@ -71,5 +85,12 @@ public class Offer {
 	    return formateador.format(ahora);
 	}
 	
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 }
