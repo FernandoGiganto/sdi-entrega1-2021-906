@@ -26,11 +26,14 @@ public class User {
 	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL)
 	private Set<Offer> offers;
 	
+	private double money;
+	
 	public User(String email,String name,String surname) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
+		this.money = 100.0;
 	}
 	
 	public User() {};
@@ -101,5 +104,13 @@ public class User {
 
 	public Set<Offer> getOffers() {
 		return offers;
+	}
+	
+	public double getMoney() {
+		return this.money;
+	}
+	
+	public void setMoney(double Money) {
+		this.money = money;
 	}
 }

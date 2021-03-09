@@ -5,21 +5,21 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
 		<h2 th:text="#{welcome.message}"></h2>
-		<h3>Esta es una zona privada la web</h3>
-		<p>
-			Usuario Autenticado como : <b th:inline="text">[[${#httpServletRequest.remoteUser}]]
+		<h3 th:text="#{home.privateZone.message}"></h3>
+		<p th:text="#{home.autentificado.message}">
+			 <b th:inline="text">[[${#httpServletRequest.remoteUser}]]
 			</b>
 		</p>
 
-		<p>Notas del usuario</p>
+		<p th:text="#{home.ofertas.usuario.message}"></p>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="col-md-1">id</th>
-						<th>titulo</th>
-						<th>Descripcion</th>
-						<th>Precio</th>
+						<th th:text="#{offer.list.titulo.message}"></th>
+						<th th:text="#{offer.list.descripcion.message}"></th>
+						<th th:text="#{offer.list.precio.message}">Precio</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -29,9 +29,9 @@
 				<tbody>
 					<tr th:each="offer : ${offersList}">
 						<td th:text="${offer.id}">1</td>
-						<td th:text="${offer.title}">Ejercicio 1</td>
-						<td th:text="${offer.description}">10</td>
-						<td th:text="${offer.price}">10</td>
+						<td th:text="${offer.title}"> </td>
+						<td th:text="${offer.description}"></td>
+						<td th:text="${offer.price}"></td>
 					</tr>
 				</tbody>
 			</table>

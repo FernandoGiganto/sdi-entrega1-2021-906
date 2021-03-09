@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uniovi.entities.User;
+import com.uniovi.services.OffersService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 
@@ -22,6 +23,9 @@ public class UsersController {
 	
 	@Autowired
 	private SecurityService securityService;
+	
+	@Autowired
+	private OffersService offersService;
 	
 	@RequestMapping("/user/list")
 	public String getListado(Model model){
@@ -48,10 +52,7 @@ public class UsersController {
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		User activeUser = usersService.getUserByEmail(email);
-		model.addAttribute("offersList", activeUser.getOffers());
+		model.addAttribute("offersList", offersService.getOffers());
 		return "home";
 	}
 
