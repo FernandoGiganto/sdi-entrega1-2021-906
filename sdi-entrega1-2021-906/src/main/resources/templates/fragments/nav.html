@@ -21,15 +21,19 @@
 				</li>
 			
 			<!-- Opciones del usuario -->
-	
-				<li>
-					<a href="/offer/add" th:text="#{nav.user.nuevaOferta.message}"></a>
-				</li>
-				<li>
-					<a href="/offer/list" th:text="#{nav.user.misOfertas.message}"></a>
-				</li>
-				<li>
-					<a href="/offer/bought" th:text="#{nav.user.ofertasCompradas.message}"></a>
+				<li id="offers-menu" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" > Gestión de Ofertas <span class="caret"></ span> </a>
+					<ul class="dropdown-menu" >
+						<li>
+							<a href="/offer/add" th:text="#{nav.user.nuevaOferta.message}"></a>
+						</li>
+						<li>
+							<a href="/offer/list" th:text="#{nav.user.misOfertas.message}"></a>
+						</li>
+						<li>
+							<a href="/offer/bought" th:text="#{nav.user.ofertasCompradas.message}"></a>
+						</li>
+					</ul>
 				</li>
 				
 			</ul>
