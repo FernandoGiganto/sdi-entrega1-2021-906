@@ -1,9 +1,13 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,31 +60,32 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model,@RequestParam(value="",required=false)String searchText) {
+	public String home(Model model,Pageable pageable,@RequestParam(value="",required=false)String searchText) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
 		model.addAttribute("offersList", activeUser.getOffers());
 		
-		List<Offer> total = offersService.getOffers();
+		Page<Offer> total = offersService.getOffers(pageable);
 		Set<Offer> propios =  activeUser.getOffers();
 		
+		Page<Offer> ofertas= new PageImpl<Offer>(new LinkedList<Offer>());
 		
 		if(searchText != null && !searchText.isEmpty()) {
-			List<Offer> aux = offersService.searchOffersByTitle(searchText);
-			for(Offer o:propios) {
-				aux.remove(o);
-			}
-			model.addAttribute("offersList", aux);
+			Page<Offer> aux = offersService.searchOffersByTitle(pageable,searchText);
+			
+			ofertas =  aux;
 		}else {
-			for(Offer o:propios) {
-				total.remove(o);
+			
+			for(Offer p:propios) {
+				total.getContent().remove(p);
 			}
-			model.addAttribute("offersList",total );
+			ofertas = total;
 		}
 		
-		
+		model.addAttribute("offersList", ofertas.getContent());
+		model.addAttribute("page", ofertas);
 		return "home";
 	}
 
