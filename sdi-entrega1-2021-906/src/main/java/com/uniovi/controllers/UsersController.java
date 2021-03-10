@@ -1,5 +1,9 @@
 package com.uniovi.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
 import com.uniovi.services.SecurityService;
@@ -52,7 +57,20 @@ public class UsersController {
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Model model) {
-		model.addAttribute("offersList", offersService.getOffers());
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		model.addAttribute("offersList", activeUser.getOffers());
+		
+		List<Offer> total = offersService.getOffers();
+		Set<Offer> propios =  activeUser.getOffers();
+		for(Offer o:propios) {
+			total.remove(o);
+		}
+		
+		
+		model.addAttribute("offersList",total );
 		return "home";
 	}
 
