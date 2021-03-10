@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Offer;
+import com.uniovi.entities.User;
 import com.uniovi.repositories.OffersRepository;
 
 @Service
@@ -34,10 +35,16 @@ public class OffersService {
 		offersRepository.deleteById(id);
 	}
 	
-	public Page<Offer> searchOffersByTitle(Pageable pageable,String searchText){
+	public Page<Offer> getOfferExceptingUsersOffer(Pageable pageable,User user){
+		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
+		offers = offersRepository.getOfferExceptingUsersOffer(pageable,user);
+		return offers;
+	}
+	
+	public Page<Offer> searchByTitleExceptingUsersOffer(Pageable pageable,String searchText,User user){
 		Page<Offer> offers = new PageImpl<Offer>(new LinkedList<Offer>());
 		searchText= "%"+searchText+"%";
-		offers = offersRepository.searchByTitle(pageable,searchText);
+		offers = offersRepository.searchByTitleExceptingUsersOffer(pageable, searchText, user);
 		return offers;
 	}
 }

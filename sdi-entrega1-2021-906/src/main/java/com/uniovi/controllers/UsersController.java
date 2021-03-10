@@ -67,22 +67,18 @@ public class UsersController {
 		User activeUser = usersService.getUserByEmail(email);
 		model.addAttribute("offersList", activeUser.getOffers());
 		
-		Page<Offer> total = offersService.getOffers(pageable);
-		Set<Offer> propios =  activeUser.getOffers();
+//		Page<Offer> total = offersService.getOffers(pageable);
+//		Set<Offer> propios =  activeUser.getOffers();
 		
 		Page<Offer> ofertas= new PageImpl<Offer>(new LinkedList<Offer>());
 		
 		if(searchText != null && !searchText.isEmpty()) {
-			Page<Offer> aux = offersService.searchOffersByTitle(pageable,searchText);
-			
-			ofertas =  aux;
+			ofertas = offersService.searchByTitleExceptingUsersOffer(pageable, searchText, activeUser);
 		}else {
-			
-			for(Offer p:propios) {
-				total.getContent().remove(p);
-			}
-			ofertas = total;
+			ofertas = offersService.getOfferExceptingUsersOffer(pageable,activeUser);
+
 		}
+		
 		
 		model.addAttribute("offersList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
