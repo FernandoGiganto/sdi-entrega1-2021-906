@@ -1,6 +1,5 @@
 package com.uniovi.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
@@ -56,7 +56,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model,@RequestParam(value="",required=false)String searchText) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
@@ -65,12 +65,22 @@ public class UsersController {
 		
 		List<Offer> total = offersService.getOffers();
 		Set<Offer> propios =  activeUser.getOffers();
-		for(Offer o:propios) {
-			total.remove(o);
+		
+		
+		if(searchText != null && !searchText.isEmpty()) {
+			List<Offer> aux = offersService.searchOffersByTitle(searchText);
+			for(Offer o:propios) {
+				aux.remove(o);
+			}
+			model.addAttribute("offersList", aux);
+		}else {
+			for(Offer o:propios) {
+				total.remove(o);
+			}
+			model.addAttribute("offersList",total );
 		}
 		
 		
-		model.addAttribute("offersList",total );
 		return "home";
 	}
 

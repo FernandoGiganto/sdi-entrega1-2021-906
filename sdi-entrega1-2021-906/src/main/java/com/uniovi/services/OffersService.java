@@ -32,4 +32,11 @@ public class OffersService {
 	public void deleteOffer(Long id) {
 		offersRepository.deleteById(id);
 	}
+	
+	public List<Offer> searchOffersByTitle(String searchText){
+		List<Offer> offers = new ArrayList<Offer>();
+		searchText= "%"+searchText+"%";
+		offers = offersRepository.searchByTitle(searchText);
+		return offers;
+	}
 }
