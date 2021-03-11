@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
+import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.LogInFormValidator;
 import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
@@ -37,6 +39,12 @@ public class UsersController {
 	
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	
+	@Autowired
+	private LogInFormValidator loginFormValidator;
+	
+	@Autowired
+	private RolesService rolesService;
 	
 	@RequestMapping("/user/list")
 	public String getListado(Model model){
@@ -59,12 +67,24 @@ public class UsersController {
 		
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+			
 		return "redirect:home";
+			
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		model.addAttribute("user", new User());
 		return "login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@Validated User user,BindingResult result) {
+		loginFormValidator.validate(user, result);
+		if(result.hasErrors())
+			return "login";
+		securityService.autoLogin(user.getEmail(), user.getPassword());
+		return "redirect:home";
 	}
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -74,9 +94,6 @@ public class UsersController {
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
 		model.addAttribute("offersList", activeUser.getOffers());
-		
-//		Page<Offer> total = offersService.getOffers(pageable);
-//		Set<Offer> propios =  activeUser.getOffers();
 		
 		Page<Offer> ofertas= new PageImpl<Offer>(new LinkedList<Offer>());
 		
@@ -90,6 +107,10 @@ public class UsersController {
 		
 		model.addAttribute("offersList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
+		
+		if(activeUser.getRole() ==  rolesService.getRoles()[1])
+			return "/user/list";
+		
 		return "home";
 	}
 
