@@ -1,8 +1,6 @@
 package com.uniovi.controllers;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +21,7 @@ import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
@@ -36,6 +35,9 @@ public class UsersController {
 	@Autowired
 	private OffersService offersService;
 	
+	@Autowired
+	private SignUpFormValidator signUpFormValidator;
+	
 	@RequestMapping("/user/list")
 	public String getListado(Model model){
 		model.addAttribute("usersList", usersService.getUsers());
@@ -44,11 +46,17 @@ public class UsersController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
+		model.addAttribute("user", new User());
 		return "signup";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(@Validated User user, BindingResult result) {
+		
+		signUpFormValidator.validate(user, result);
+		if(result.hasErrors())
+			return "signup";
+		
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
