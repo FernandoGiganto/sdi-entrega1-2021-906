@@ -110,7 +110,7 @@ public class User {
 		return this.money;
 	}
 	
-	public void setMoney(double Money) {
+	public void setMoney(double money) {
 		this.money = money;
 	}
 }

@@ -17,5 +17,7 @@ public interface OffersRepository extends CrudRepository<Offer,Long>{
 	Page<Offer> searchByTitleExceptingUsersOffer(Pageable pageable,String searchText,User User);
 	
 	Page<Offer> findAll(Pageable pageable);
+	
+
 
 }
