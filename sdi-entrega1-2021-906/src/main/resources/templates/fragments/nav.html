@@ -15,11 +15,11 @@
 
 			<!-- Opciones del admin  -->
 
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
 				<li class="active">
 					<a href="/home">Home</a>
 				</li>
-				<li class="active">
+				<li id="user-menu" sec:authorize="hasRole('ROLE_ADMIN')">
 					<a href="/user/list" th:text="#{nav.admin.verUsuario.message}"></a>
 				</li>
 			
@@ -61,13 +61,13 @@
 					</ul>
 				</li>
 			
-				<li>
+				<li sec:authorize="!isAuthenticated()">
 					<a href="/signup" th:text="#{nav.register.message}"> <span class="glyphiconglyphicon-user"> </span></a>
 				</li>
-				<li>
+				<li sec:authorize="!isAuthenticated()">
 					<a href="/login" th:text="#{nav.login.message}"> <span class="glyphiconglyphicon-log-in"> </span></a>
 				</li>
-				<li>	
+				<li sec:authorize="isAuthenticated()">	
 					<a href="/logout" th:text="#{nav.logout.message}"> <span class="glyphicon glyphicon-log-out"></span> </a>
 				</li>
 			</ul>
