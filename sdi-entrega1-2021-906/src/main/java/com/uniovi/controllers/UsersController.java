@@ -22,7 +22,6 @@ import com.uniovi.services.OffersService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
-import com.uniovi.validators.LogInFormValidator;
 import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
@@ -40,8 +39,7 @@ public class UsersController {
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
 	
-	@Autowired
-	private LogInFormValidator loginFormValidator;
+	
 	
 	@Autowired
 	private RolesService rolesService;
@@ -73,19 +71,17 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(Model model,String error ) {
+		if(error != null )
+			model.addAttribute("error", "El usuario o la contraseña no existen");
+		
+		
 		model.addAttribute("user", new User());
+		
 		return "login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@Validated User user,BindingResult result) {
-		loginFormValidator.validate(user, result);
-		if(result.hasErrors())
-			return "login";
-		securityService.autoLogin(user.getEmail(), user.getPassword());
-		return "redirect:home";
-	}
+	
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home(Model model,Pageable pageable,@RequestParam(value="",required=false)String searchText) {

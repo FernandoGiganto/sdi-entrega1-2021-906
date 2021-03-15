@@ -53,4 +53,9 @@ public class OffersController {
 		offersService.deleteOffer(id);
 		return "redirect:/offer/list";
 	}
+	
+	@RequestMapping("/offer/buy/{id}")
+	public String buyOffer(@PathVariable Long id) {
+		return "redirect:/offer/bought";
+	}
 }

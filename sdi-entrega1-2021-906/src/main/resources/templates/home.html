@@ -40,6 +40,7 @@
 						<td th:text="${offer.title}"> </td>
 						<td th:text="${offer.description}"></td>
 						<td th:text="${offer.price}"></td>
+						<td><a th:href="${'/offer/buy/' + offer.id}" th:text="#{offer.list.comprar.message}"></a></td>
 					</tr>
 				</tbody>
 			</table>
