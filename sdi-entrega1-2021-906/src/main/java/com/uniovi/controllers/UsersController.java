@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,10 +46,30 @@ public class UsersController {
 	@Autowired
 	private RolesService rolesService;
 	
-	@RequestMapping("/user/list")
+	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public String getListado(Model model){
 		model.addAttribute("usersList", usersService.getUsers());
 		return"user/list";
+	}
+	
+
+	@RequestMapping(value = "/user/delete", method = RequestMethod.GET )
+	public String delete(Model model) {
+		model.addAttribute("usersList", usersService.getUsers());
+		return "redirect:/user/list";
+	}
+	
+	@RequestMapping(value = "/user/delete", method = RequestMethod.POST )
+	public String delete(@ModelAttribute User user){
+		usersService.deleteUser(user.getId());
+		return"redirect:/user/list";
+	}
+	
+	@RequestMapping("/user/update" )
+	public String update(Model model){
+		 
+		model.addAttribute("userList",usersService.getUsers());
+		return"redirect:/user/list";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
