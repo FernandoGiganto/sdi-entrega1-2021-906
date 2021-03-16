@@ -24,10 +24,10 @@
 				</li>
 			
 			<!-- Opciones del usuario -->
-				<li id="offers-menu" class="dropdown">
+				<li id="offers-menu" class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
 					<a class="dropdown-toggle" data-toggle="dropdown" th:text="#{nav.user.gestionOfertas.message}"><span class="caret"></span> </a>
 					<ul class="dropdown-menu" >
-						<li>
+						<li >
 							<a href="/offer/add" th:text="#{nav.user.nuevaOferta.message}"></a>
 						</li>
 						<li>
