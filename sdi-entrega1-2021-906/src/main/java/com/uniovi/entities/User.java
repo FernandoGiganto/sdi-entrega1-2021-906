@@ -124,6 +124,11 @@ public class User {
 	public void setOffersBought(Set<Offer> offersBought) {
 		this.offersBought = offersBought;
 	}
+
+	public void addOfferBought(Offer offer) {
+		this.offersBought.add(offer);
+		
+	}
 	
 	
 }

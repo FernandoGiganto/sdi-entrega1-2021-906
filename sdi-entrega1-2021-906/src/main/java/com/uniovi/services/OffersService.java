@@ -1,6 +1,7 @@
 package com.uniovi.services;
 
 import java.util.LinkedList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,7 +50,8 @@ public class OffersService {
 	}
 
 	public void buyOffer(Long id,User comprador) {
-		Offer offer = offersRepository.findById(id).get(); 
-		offer.setComprador(comprador);
+		Optional<Offer> offer = offersRepository.findById(id);
+		offer.get().setComprador(comprador);
+		offersRepository.save(offer.get());
 	}
 }

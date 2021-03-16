@@ -1,8 +1,6 @@
 package com.uniovi.entities;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,6 +43,7 @@ public class Offer {
 		this.setPrice(price);
 		this.setUser(user);
 		this.setDischarge_date(date);
+		this.comprador = null;
 	}
 	
 	public Offer() {}
@@ -85,11 +84,7 @@ public class Offer {
 				+ discharge_date + ", price=" + price + "]";
 	}
 	
-	public static String getFechaActual() {
-	    Date ahora = new Date();
-	    SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-	    return formateador.format(ahora);
-	}
+	
 	
 	public User getUser() {
 		return this.user;

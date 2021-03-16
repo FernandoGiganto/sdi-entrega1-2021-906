@@ -79,9 +79,10 @@ public class OffersController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
+		
 		offersService.buyOffer(id,activeUser);
-		model.addAttribute("offersList", activeUser.getOffersBought());
-		return "redirect:/offer/boughtList";
+		
+		return "redirect:/home";
 	}
 	
 	@RequestMapping("/offer/boughtList")
@@ -93,7 +94,7 @@ public class OffersController {
 		
 		model.addAttribute("offersList", activeUser.getOffersBought());
 		
-
+		
 		
 		return"offer/boughtList";
 	}
