@@ -26,6 +26,10 @@ public class Offer {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "comprador_id")
+	private User comprador;
+	
 	public Offer(String title,String description,double price,LocalDate date) {
 		super();
 		this.title = title;
@@ -94,5 +98,14 @@ public class Offer {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public User getComprador() {
+		return comprador;
+	}
+
+	public void setComprador(User comprador) {
+		this.comprador = comprador;
+	}
+	
 	
 }

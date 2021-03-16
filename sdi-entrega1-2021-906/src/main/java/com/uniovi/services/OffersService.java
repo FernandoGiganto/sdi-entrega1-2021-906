@@ -47,4 +47,9 @@ public class OffersService {
 		offers = offersRepository.searchByTitleExceptingUsersOffer(pageable, searchText, user);
 		return offers;
 	}
+
+	public void buyOffer(Long id,User comprador) {
+		Offer offer = offersRepository.findById(id).get(); 
+		offer.setComprador(comprador);
+	}
 }

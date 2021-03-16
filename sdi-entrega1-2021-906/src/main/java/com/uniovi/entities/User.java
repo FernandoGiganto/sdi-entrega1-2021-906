@@ -26,6 +26,9 @@ public class User {
 	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL)
 	private Set<Offer> offers;
 	
+	@OneToMany(mappedBy ="comprador", cascade = CascadeType.ALL)
+	private Set<Offer> offersBought;
+	
 	private double money;
 	
 	public User(String email,String name,String surname) {
@@ -113,4 +116,14 @@ public class User {
 	public void setMoney(double money) {
 		this.money = money;
 	}
+
+	public Set<Offer> getOffersBought() {
+		return offersBought;
+	}
+
+	public void setOffersBought(Set<Offer> offersBought) {
+		this.offersBought = offersBought;
+	}
+	
+	
 }

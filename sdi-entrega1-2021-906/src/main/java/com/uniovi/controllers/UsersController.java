@@ -20,7 +20,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
-import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.SignUpFormValidator;
@@ -39,11 +38,7 @@ public class UsersController {
 	
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-	
-	
-	
-	@Autowired
-	private RolesService rolesService;
+
 	
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public String getListado(Model model){

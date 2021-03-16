@@ -75,7 +75,26 @@ public class OffersController {
 	}
 	
 	@RequestMapping("/offer/buy/{id}")
-	public String buyOffer(@PathVariable Long id) {
-		return "redirect:/offer/bought";
+	public String buyOffer(@PathVariable Long id,Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		offersService.buyOffer(id,activeUser);
+		model.addAttribute("offersList", activeUser.getOffersBought());
+		return "redirect:/offer/boughtList";
+	}
+	
+	@RequestMapping("/offer/boughtList")
+	public String getListadoCompra(Model model){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		
+		model.addAttribute("offersList", activeUser.getOffersBought());
+		
+
+		
+		return"offer/boughtList";
 	}
 }
