@@ -7,7 +7,7 @@
 		<h2 th:text="#{welcome.message}"></h2>
 		<h3 th:text="#{home.privateZone.message}"></h3>
 		<p th:text="#{home.autentificado.message}">
-			 <span th:inline="text"  sec:authentication="principal.username"></span>
+			 <span  sec:authentication="principal.username" th:inline="text"></span>
 		</p>
 
 		<!-- <p th:text="#{home.ofertas.usuario.message}"></p> -->

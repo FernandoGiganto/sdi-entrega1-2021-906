@@ -1,6 +1,7 @@
 package com.uniovi.entities;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -18,27 +19,28 @@ public class Offer {
 	
 	private String title;
 	private String description;
-	private String discharge_date;
+	private LocalDate discharge_date;
 	private double price;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	public Offer(String title,String description,double price) {
+	public Offer(String title,String description,double price,LocalDate date) {
 		super();
 		this.title = title;
 		this.description = description;
-		this.discharge_date = getFechaActual();
 		this.price = price;
+		this.discharge_date=date;
 	}
 	
-	public Offer(String title,String description,double price,User user) {
+	public Offer(String title,String description,double price,LocalDate date,User user) {
 		super();
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setUser(user);
+		this.setDischarge_date(date);
 	}
 	
 	public Offer() {}
@@ -61,10 +63,10 @@ public class Offer {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getDischarge_date() {
+	public LocalDate getDischarge_date() {
 		return discharge_date;
 	}
-	public void setDischarge_date(String discharge_date) {
+	public void setDischarge_date(LocalDate discharge_date) {
 		this.discharge_date = discharge_date;
 	}
 	public double getPrice() {

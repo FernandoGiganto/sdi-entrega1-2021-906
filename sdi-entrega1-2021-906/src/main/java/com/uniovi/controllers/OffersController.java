@@ -1,5 +1,7 @@
 package com.uniovi.controllers;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
+import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 
 @Controller
@@ -23,6 +26,9 @@ public class OffersController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private SecurityService securityService; 
 	
 	@RequestMapping("/offer/list")
 	public String getListado(Model model){
@@ -37,13 +43,13 @@ public class OffersController {
 	
 	@RequestMapping(value = "/offer/add", method = RequestMethod.GET)
 	public String setMark(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
 		return "offer/add";
 	}
 
 	@RequestMapping(value = "/offer/add", method = RequestMethod.POST)
 	public String setMark(@ModelAttribute Offer offer) {
-
+		offer.setDischarge_date(LocalDate.now());
+		offer.setUser(usersService.getUserByEmail(securityService.findLoggedInEmail()));
 		offersService.addOffer(offer);
 		return "redirect:/offer/list";
 	}
