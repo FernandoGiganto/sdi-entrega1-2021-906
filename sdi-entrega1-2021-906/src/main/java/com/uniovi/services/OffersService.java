@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.OffersRepository;
+import com.uniovi.repositories.UsersRepository;
 
 @Service
 public class OffersService {
 
 	@Autowired
 	private OffersRepository offersRepository;
+	
+	@Autowired
+	private UsersRepository usersRepository;
 	
 	public Page<Offer> getOffers(Pageable pageable) {
 		Page<Offer> Offers = offersRepository.findAll(pageable);
@@ -51,7 +55,13 @@ public class OffersService {
 
 	public void buyOffer(Long id,User comprador) {
 		Optional<Offer> offer = offersRepository.findById(id);
+		
+		Offer o_aux = getOffer(id);
+		
+		Optional<User> user = usersRepository.findById(comprador.getId());
 		offer.get().setComprador(comprador);
+		user.get().addOfferBought(o_aux);
+		usersRepository.save(user.get());
 		offersRepository.save(offer.get());
 	}
 }

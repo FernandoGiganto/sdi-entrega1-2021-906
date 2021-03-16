@@ -81,7 +81,6 @@ public class OffersController {
 		User activeUser = usersService.getUserByEmail(email);
 		
 		offersService.buyOffer(id,activeUser);
-		
 		return "redirect:/home";
 	}
 	
@@ -93,8 +92,7 @@ public class OffersController {
 		User activeUser = usersService.getUserByEmail(email);
 		
 		model.addAttribute("offersList", activeUser.getOffersBought());
-		
-		
+
 		
 		return"offer/boughtList";
 	}

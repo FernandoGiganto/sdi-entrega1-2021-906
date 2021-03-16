@@ -17,6 +17,9 @@ public interface OffersRepository extends CrudRepository<Offer,Long>{
 	Page<Offer> searchByTitleExceptingUsersOffer(Pageable pageable,String searchText,User User);
 	
 	Page<Offer> findAll(Pageable pageable);
+
+	@Query("SELECT o FROM Offer o WHERE id = ?1")
+	Offer findId(Long id);
 	
 
 

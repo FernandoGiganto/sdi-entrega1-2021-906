@@ -23,7 +23,7 @@
 						<th th:text="#{offer.list.titulo.message}"></th>
 						<th th:text="#{offer.list.descripcion.message}"></th>
 						<th th:text="#{offer.list.precio.message}"></th>
-						<th >Email Comprador</th>
+						<th >Email Vendedor</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -36,7 +36,7 @@
 						<td th:text="${offer.title}"></td>
 						<td th:text="${offer.description}"></td>
 						<td th:text="${offer.price}"></td>
-						<td th:text="${offer.user.emial}"></td>
+						<td th:text="${offer.user.getEmail()}"></td>
 					</tr>
 				</tbody>
 			</table>
