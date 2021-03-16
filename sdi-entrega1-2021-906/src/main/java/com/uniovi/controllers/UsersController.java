@@ -128,8 +128,6 @@ public class UsersController {
 		model.addAttribute("offersList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
 		
-		if(activeUser.getRole() ==  rolesService.getRoles()[1])
-			return "/user/list";
 		
 		return "home";
 	}

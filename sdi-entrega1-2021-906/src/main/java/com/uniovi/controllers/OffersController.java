@@ -37,19 +37,27 @@ public class OffersController {
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
 		model.addAttribute("offersList", activeUser.getOffers());
+		
+
+		
 		return"offer/list";
 	}
 
 	
 	@RequestMapping(value = "/offer/add", method = RequestMethod.GET)
-	public String setMark(Model model) {
+	public String setOffer(Model model) {
 		return "offer/add";
 	}
 
 	@RequestMapping(value = "/offer/add", method = RequestMethod.POST)
-	public String setMark(@ModelAttribute Offer offer) {
+	public String setOffer(@ModelAttribute Offer offer) {
 		offer.setDischarge_date(LocalDate.now());
-		offer.setUser(usersService.getUserByEmail(securityService.findLoggedInEmail()));
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+	
+		offer.setUser(activeUser);
 		offersService.addOffer(offer);
 		return "redirect:/offer/list";
 	}
