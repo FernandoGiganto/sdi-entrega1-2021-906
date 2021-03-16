@@ -12,11 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
@@ -60,9 +59,13 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/user/delete", method = RequestMethod.POST )
-	public String delete(@ModelAttribute User user){
-		usersService.deleteUser(user.getId());
-		return"redirect:/user/list";
+	public String delete(ServletWebRequest request){
+		if(request.getParameterValues("idChk") != null){
+	        for(String id : request.getParameterValues("idChk")){
+	        	usersService.deleteUser(Long.valueOf(id));
+	            } 
+	    }
+		return "redirect:/user/list";
 	}
 	
 	@RequestMapping("/user/update" )
@@ -96,8 +99,7 @@ public class UsersController {
 	public String login(Model model,String error ) {
 		if(error != null )
 			model.addAttribute("error", "El usuario o la contraseña no existen");
-		
-		
+	
 		model.addAttribute("user", new User());
 		
 		return "login";
