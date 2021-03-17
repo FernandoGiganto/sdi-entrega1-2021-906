@@ -16,7 +16,7 @@
 						<th th:text="#{user.list.email.message}"></th>
 						<th th:text="#{user.list.name.message}"></th>
 						<th th:text="#{user.list.surname.message}"></th>
-						<th >Eliminar</th>
+						<th th:text="#{user.list.checkBox.message}"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -32,7 +32,7 @@
 						</tr>
 					</tbody>
 			</table>
-			<button type="submit" class="btn btn-primary">Eliminar usuarios</button>
+			<button type="submit" class="btn btn-primary" th:text="#{user.list.deleteUsers.message}"></button>
 			</form>
 		</div>
 		

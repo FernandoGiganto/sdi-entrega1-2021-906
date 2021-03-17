@@ -28,7 +28,7 @@
 						<th th:text="#{offer.list.titulo.message}"></th>
 						<th th:text="#{offer.list.descripcion.message}"></th>
 						<th th:text="#{offer.list.precio.message}"></th>
-						<th >Comprar</th>
+						<th th:text="#{offer.list.comprar.message}"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -41,8 +41,8 @@
 						<td th:text="${offer.description}"></td>
 						<td th:text="${offer.price}"></td>
 						<td>
-							<a th:href="${'/offer/buy/' + offer.id}" th:if="${offer.comprador == null}">Comprar</a>
-							<span th:if="${offer.comprador != null}">Vendido</span>
+							<a th:href="${'/offer/buy/' + offer.id}" th:if="${offer.comprador == null}" th:text="#{offer.list.comprar.message}"></a>
+							<span th:if="${offer.comprador != null}" th:text="#{offer.list.vendido.message}"></span>
 						</td>
 						
 						
