@@ -37,6 +37,14 @@
 							<a href="/offer/boughtList" th:text="#{nav.user.ofertasCompradas.message}"></a>
 						</li>
 						
+						
+						
+					</ul>
+				</li>
+				<li id="usuario-menu" class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
+					<ul>
+						<li style="color:white"  th:text="${activeUser.email}"></li>
+						<li style="color:white" th:text="${activeUser.money}"></li>
 					</ul>
 				</li>
 				

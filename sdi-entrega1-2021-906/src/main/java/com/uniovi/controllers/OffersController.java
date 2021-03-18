@@ -92,7 +92,7 @@ public class OffersController {
 		User activeUser = usersService.getUserByEmail(email);
 		
 		model.addAttribute("offersList", activeUser.getOffersBought());
-
+		model.addAttribute("activeUser", activeUser);
 		
 		return"offer/boughtList";
 	}

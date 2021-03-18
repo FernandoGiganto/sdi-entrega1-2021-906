@@ -66,8 +66,6 @@ public class OffersService {
 			usersRepository.save(user.get());
 			offersRepository.save(offer.get());
 			
-		}else {
-			
 		}
 		
 	}
