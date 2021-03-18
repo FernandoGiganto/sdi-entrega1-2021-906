@@ -122,7 +122,7 @@ public class UsersController {
 		
 		model.addAttribute("offersList", ofertas.getContent());
 		model.addAttribute("page", ofertas);
-		
+		model.addAttribute("activeUser", activeUser);
 		
 		return "home";
 	}
