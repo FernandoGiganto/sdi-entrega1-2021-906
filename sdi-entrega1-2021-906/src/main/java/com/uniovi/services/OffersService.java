@@ -59,9 +59,16 @@ public class OffersService {
 		Offer o_aux = getOffer(id);
 		
 		Optional<User> user = usersRepository.findById(comprador.getId());
-		offer.get().setComprador(comprador);
-		user.get().addOfferBought(o_aux);
-		usersRepository.save(user.get());
-		offersRepository.save(offer.get());
+		if(user.get().getMoney() >= offer.get().getPrice()) {
+			offer.get().setComprador(comprador);
+			user.get().addOfferBought(o_aux);
+			user.get().setMoney((user.get().getMoney()-offer.get().getPrice()));
+			usersRepository.save(user.get());
+			offersRepository.save(offer.get());
+			
+		}else {
+			
+		}
+		
 	}
 }
