@@ -25,7 +25,7 @@
 			
 			<!-- Opciones del usuario -->
 				<li id="offers-menu" class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
-					<a class="dropdown-toggle" data-toggle="dropdown" th:text="#{nav.user.gestionOfertas.message}"><span class="caret"></span> </a>
+					<a class="dropdown-toggle" data-toggle="dropdown" th:text="#{nav.user.gestionOfertas.message}">Gestión de Ofertas<span class="caret"></span> </a>
 					<ul class="dropdown-menu" >
 						<li >
 							<a href="/offer/add" th:text="#{nav.user.nuevaOferta.message}"></a>
@@ -42,9 +42,10 @@
 					</ul>
 				</li>
 				<li id="usuario-menu" class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
-					<ul>
-						<li style="color:white"  th:text="${activeUser.email}"></li>
-						<li style="color:white" th:text="${activeUser.money}"></li>
+					<a class="dropdown-toggle" data-toggle="dropdown">Perfil<span class="caret"></span> </a>
+					<ul  class="dropdown-menu">
+						<li   th:text=" 'Usuario:'+${activeUser.email}"></li>
+						<li  th:text=" 'Dinero:'+${activeUser.money}+'€'" ></li>
 					</ul>
 				</li>
 				
