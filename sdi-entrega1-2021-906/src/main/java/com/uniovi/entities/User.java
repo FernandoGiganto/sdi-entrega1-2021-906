@@ -32,14 +32,34 @@ public class User {
 	
 	private double money;
 	
+	private boolean admin;
+	
 	public User(String email,String name,String surname) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.money = 100.0;
+		this.admin = false;
 	}
 	
+	public User(String email,String name,String surname,boolean isAdmin) {
+		super();
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+		this.money = 100.0;
+		this.admin = true;
+	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	public User() {};
 	
 	public Long getId() {
