@@ -31,7 +31,6 @@ public class UsersService {
 	
 	public void addUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRole("ROLE_USUARIO");
 		usersRepository.save(user);
 	}
 	

@@ -39,7 +39,7 @@ public class OffersController {
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
 		model.addAttribute("offersList", activeUser.getOffers());
-		
+		model.addAttribute("activeUser", activeUser);
 
 		
 		return"offer/list";
@@ -48,6 +48,10 @@ public class OffersController {
 	
 	@RequestMapping(value = "/offer/add", method = RequestMethod.GET)
 	public String setOffer(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		User activeUser = usersService.getUserByEmail(email);
+		model.addAttribute("activeUser", activeUser);
 		model.addAttribute("offer",new Offer());
 		return "offer/add";
 	}

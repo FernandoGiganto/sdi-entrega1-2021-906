@@ -1,6 +1,7 @@
 package com.uniovi.controllers;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import com.uniovi.entities.Offer;
 import com.uniovi.entities.User;
 import com.uniovi.services.OffersService;
+import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.SignUpFormValidator;
@@ -35,6 +37,9 @@ public class UsersController {
 	
 	@Autowired
 	private OffersService offersService;
+	
+	@Autowired
+	private RolesService rolesService;
 	
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
@@ -82,9 +87,10 @@ public class UsersController {
 		signUpFormValidator.validate(user, result);
 		if(result.hasErrors())
 			return "signup";
+		user.setMoney(100.0);
+		user.setRole(rolesService.getRoles()[0]);
 		
 		usersService.addUser(user);
-		
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		
 		return "redirect:home";
