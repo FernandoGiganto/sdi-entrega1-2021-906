@@ -78,7 +78,7 @@
 				<li sec:authorize="!isAuthenticated()">
 					<a href="/login" th:text="#{nav.login.message}"> <span class="glyphiconglyphicon-log-in"> </span></a>
 				</li>
-				<li sec:authorize="isAuthenticated()">	
+				<li sec:authorize="isAuthenticated()" id="logout">	
 					<a href="/logout" th:text="#{nav.logout.message}"> <span class="glyphicon glyphicon-log-out"></span> </a>
 				</li>
 			</ul>

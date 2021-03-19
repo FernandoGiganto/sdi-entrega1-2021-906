@@ -15,6 +15,7 @@ import com.uniovi.tests.pageObjects.PO_LoginView;
 import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
 import com.uniovi.tests.pageObjects.PO_View;
+import com.uniovi.tests.util.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -136,5 +137,21 @@ public class PruebasTests {
 		PO_LoginView.fillForm(driver, "fallo", "fallo");
 		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
 
+	}
+	
+	//Hacer logout y redirige a la pagina de login
+	@Test
+	public void Prueba10() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_View.checkElement(driver, "text", "Identifícate");
+	}
+	
+	//Comprobar que el btn de logout no aparece si no estas autentificado
+	@Test
+	public void Prueba11() {
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver,"//li[contains(@id, 'logout')]/a",PO_View.getTimeout());
+		
 	}
 }
