@@ -84,8 +84,9 @@ public class UsersController {
 			return "signup";
 		
 		usersService.addUser(user);
+		
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
-			
+		
 		return "redirect:home";
 			
 	}
