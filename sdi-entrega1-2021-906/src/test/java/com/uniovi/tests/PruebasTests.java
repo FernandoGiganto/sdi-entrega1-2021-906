@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageObjects.PO_HomeView;
+import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
 import com.uniovi.tests.pageObjects.PO_View;
 
@@ -25,7 +26,7 @@ public class PruebasTests {
 	// Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "http://localhost:8090";
-	
+
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
 		System.setProperty("webdriver.gecko.driver", Geckdriver);
@@ -58,7 +59,7 @@ public class PruebasTests {
 		driver.quit();
 	}
 
-	//Registro de Usuario con datos válidos
+	// Registro de Usuario con datos válidos
 	@Test
 	public void Prueba1() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
@@ -66,4 +67,33 @@ public class PruebasTests {
 		// Comprobamos que entramos en la sección privada
 		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
 	}
+
+	// Registro de Usuario con datos inválidos
+	@Test
+	public void Prueba2() {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "", "", "", "", "");
+		// Comprobamos que entramos en la sección privada
+		PO_RegisterView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
+	}
+
+	// Registro de Usuario con error en passwordConfirm
+	@Test
+	public void Prueba3() {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "prueba1@gmail.com", "Josefo", "Perez", "77777", "fallo");
+		// Comprobamos que entramos en la sección privada
+		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence.message",
+				PO_Properties.getSPANISH());
+	}
+	
+	// Registro de Usuario con error coincidencia del emial
+		@Test
+		public void Prueba4() {
+			PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+			PO_RegisterView.fillForm(driver, "admin@gmail.com", "Josefo", "Perez", "77777", "77777");
+			// Comprobamos que entramos en la sección privada
+			PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate.message",
+					PO_Properties.getSPANISH());
+		}
 }
