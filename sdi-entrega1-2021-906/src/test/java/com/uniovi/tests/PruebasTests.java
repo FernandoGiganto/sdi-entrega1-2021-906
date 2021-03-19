@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageObjects.PO_HomeView;
+import com.uniovi.tests.pageObjects.PO_LoginView;
 import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
 import com.uniovi.tests.pageObjects.PO_View;
@@ -64,7 +65,6 @@ public class PruebasTests {
 	public void Prueba1() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "prueba1@gmail.com", "Josefo", "Perez", "77777", "77777");
-		// Comprobamos que entramos en la sección privada
 		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
 	}
 
@@ -73,7 +73,6 @@ public class PruebasTests {
 	public void Prueba2() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "", "", "", "", "");
-		// Comprobamos que entramos en la sección privada
 		PO_RegisterView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
 	}
 
@@ -82,18 +81,60 @@ public class PruebasTests {
 	public void Prueba3() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "prueba1@gmail.com", "Josefo", "Perez", "77777", "fallo");
-		// Comprobamos que entramos en la sección privada
 		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence.message",
 				PO_Properties.getSPANISH());
 	}
-	
+
 	// Registro de Usuario con error coincidencia del emial
-		@Test
-		public void Prueba4() {
-			PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-			PO_RegisterView.fillForm(driver, "admin@gmail.com", "Josefo", "Perez", "77777", "77777");
-			// Comprobamos que entramos en la sección privada
-			PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate.message",
-					PO_Properties.getSPANISH());
-		}
+	@Test
+	public void Prueba4() {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "admin@gmail.com", "Josefo", "Perez", "77777", "77777");
+		PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate.message", PO_Properties.getSPANISH());
+	}
+
+	// Inicio de sesion como admin valido
+	@Test
+	public void Prueba5() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
+
+	}
+
+	// Inicio de sesion como usuario valido
+	@Test
+	public void Prueba6() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
+
+	}
+
+	// Inicio de sesion como usuario invalido, vacio
+	@Test
+	public void Prueba7() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "", "");
+		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
+
+	}
+
+	// Inicio de sesion como usuario invalido, constraseña incorrecta
+	@Test
+	public void Prueba8() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "fallo");
+		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
+
+	}
+
+	// Inicio de sesion como usuario invalido, email no existente
+	@Test
+	public void Prueba9() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "fallo", "fallo");
+		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
+
+	}
 }

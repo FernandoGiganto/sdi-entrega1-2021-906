@@ -10,7 +10,7 @@
 				<label class="control-label col-sm-2" for="username" th:text="#{login.email.message}"></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="username"
-						placeholder="Ejemplo: xxxxxxx@gmail.com" required="true" />
+						placeholder="Ejemplo: xxxxxxx@gmail.com"  />
 						<span class="text-danger" th:text="${error}" th:if="${error != null}">
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 				<label class="control-label col-sm-2" for="password" th:text="#{login.password.message}"></label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="password"
-						placeholder="Entre el Password" required="true" />
+						placeholder="Entre el Password"  />
 						<span class="text-danger" th:text="${error}" th:if="${error != null}">
 				</div>
 
