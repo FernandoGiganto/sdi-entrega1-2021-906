@@ -1,5 +1,9 @@
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,6 +12,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageObjects.PO_AddOfferView;
@@ -186,5 +191,16 @@ public class PruebasTests {
 		PO_AddOfferView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Mis Ofertas",PO_View.getTimeout());
 		
+	}
+	
+	//Mostrar listado de ofertas propias y comprobar que estan todas
+	@Test
+	public void Prueba18() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/list')]", 0);
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertTrue(elementos.size() == 5);
 	}
 }
