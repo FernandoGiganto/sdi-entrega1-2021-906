@@ -157,5 +157,9 @@ public class User {
 		
 	}
 	
+	public boolean checkPrice(Double price) {
+		return getMoney() >= price;
+	}
+	 
 	
 }

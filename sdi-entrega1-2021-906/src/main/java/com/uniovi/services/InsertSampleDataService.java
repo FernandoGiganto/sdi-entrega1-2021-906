@@ -55,7 +55,7 @@ public class InsertSampleDataService {
 		Set user2Offers = new HashSet<Offer>() {
 			{
 				add(new Offer("Oferta B1","descripcion de la oferta B1",1.00,LocalDate.now(),user2));
-				add(new Offer("Oferta B2","descripcion de la oferta B2",55.00,LocalDate.now(),user2));
+				add(new Offer("Oferta B2","descripcion de la oferta B2",78.00,LocalDate.now(),user2));
 				add(new Offer("Oferta B3","descripcion de la oferta B3",22.00,LocalDate.now(),user2));
 				add(new Offer("Oferta B4","descripcion de la oferta B4",13.50,LocalDate.now(),user2));
 			}

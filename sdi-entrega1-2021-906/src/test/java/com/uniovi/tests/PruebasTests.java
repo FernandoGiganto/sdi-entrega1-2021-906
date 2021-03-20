@@ -18,6 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.uniovi.tests.pageObjects.PO_AddOfferView;
 import com.uniovi.tests.pageObjects.PO_HomeView;
 import com.uniovi.tests.pageObjects.PO_LoginView;
+import com.uniovi.tests.pageObjects.PO_NavView;
 import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
 import com.uniovi.tests.pageObjects.PO_UserList;
@@ -274,5 +275,49 @@ public class PruebasTests {
 		assertTrue(elementos.size() == 1);
 		PO_AddOfferView.navigate(driver,"//a[contains(@class, 'page-link')]", 1);
 	}
-
+	
+	//Comprar una oferta que deje un saldo positivo.Comprobar saldo
+	@Test
+	public void Prueba23() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver,"//td[contains(text(), 'Oferta B3')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+		PO_View.checkElement(driver, "text", "Vendido");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
+		PO_View.checkElement(driver, "text", "78.0");
+		
+	}
+	
+	//Comprar una oferta que deje un saldo 0.Comprobar saldo
+	@Test
+	public void Prueba24() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver,"//td[contains(text(), 'Oferta B2')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+		PO_View.checkElement(driver, "text", "Vendido");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
+		PO_View.checkElement(driver, "text", "0.0");
+		
+	}
+	
+	//Comprar una oferta de precio superior al saldo
+	@Test
+	public void Prueba25() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_View.checkElement(driver, "text", "No dinero suficiente");
+		
+		
+	}
+	
+	//Ir a ofertas compradas y que aparezcan
+	@Test
+	public void Prueba26() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/boughtList')]", 0);
+		PO_View.checkElement(driver, "text", "Oferta B3");
+		PO_View.checkElement(driver, "text", "Oferta B2");
+	}
 }

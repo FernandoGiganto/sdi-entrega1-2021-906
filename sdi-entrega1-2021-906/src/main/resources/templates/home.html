@@ -41,8 +41,9 @@
 						<td th:text="${offer.description}"></td>
 						<td th:text="${offer.price}"></td>
 						<td>
-							<a th:href="${'/offer/buy/' + offer.id}" th:if="${offer.comprador == null}" th:text="#{offer.list.comprar.message}"></a>
+							<a th:href="${'/offer/buy/' + offer.id}" th:if="${activeUser.checkPrice(offer.price) && offer.comprador == null}" th:text="#{offer.list.comprar.message}"></a>
 							<span th:if="${offer.comprador != null}" th:text="#{offer.list.vendido.message}"></span>
+							<span th:if="${!activeUser.checkPrice(offer.price) && offer.comprador == null}" th:text="#{offer.list.saldo.message}"></span>
 						</td>
 						
 						
