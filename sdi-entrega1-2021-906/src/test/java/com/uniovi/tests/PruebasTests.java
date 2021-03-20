@@ -20,6 +20,7 @@ import com.uniovi.tests.pageObjects.PO_HomeView;
 import com.uniovi.tests.pageObjects.PO_LoginView;
 import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
+import com.uniovi.tests.pageObjects.PO_UserList;
 import com.uniovi.tests.pageObjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 
@@ -249,4 +250,29 @@ public class PruebasTests {
 		assertTrue(elementos.size() == 3);
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Oferta A3", PO_View.getTimeout());
 	}
+
+	// Hacer una busqueda con el campo vacio y se muestran todas las ofertas
+	@Test
+	public void Prueba21() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_UserList.fillForm(driver, "");
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+		assertTrue(elementos.size() == 5);
+		PO_AddOfferView.navigate(driver,"//a[contains(@class, 'page-link')]", 1);
+	}
+
+	// Hacer una busqueda con el campo no existente y no se muestran ofertas
+	@Test
+	public void Prueba22() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_UserList.fillForm(driver, "fallando");
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody",
+				PO_View.getTimeout()); //al ser en tbody todavia queda un WebElement
+		assertTrue(elementos.size() == 1);
+		PO_AddOfferView.navigate(driver,"//a[contains(@class, 'page-link')]", 1);
+	}
+
 }
