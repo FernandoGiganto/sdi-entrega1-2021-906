@@ -166,8 +166,18 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
 		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
 		assertTrue(elementos.size() == 7);
+	}
+
+	// Borrar el primer usuario de la lista de usuarios
+	@Test
+	public void Prueba13() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
+
 	}
 
 	// Dar de la alta nueva oferta con datos validos
@@ -190,18 +200,53 @@ public class PruebasTests {
 		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/add')]", 0);
 		PO_AddOfferView.fillForm(driver, "", "DescripcionTituloTest", "1000.0");
 		PO_AddOfferView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Mis Ofertas",PO_View.getTimeout());
-		
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Mis Ofertas", PO_View.getTimeout());
+
 	}
-	
-	//Mostrar listado de ofertas propias y comprobar que estan todas
+
+	// Mostrar listado de ofertas propias y comprobar que estan todas
 	@Test
 	public void Prueba18() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
 		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/list')]", 0);
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
 		assertTrue(elementos.size() == 5);
+	}
+
+	// Borrar primera oferta
+	@Test
+	public void Prueba19() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/list')]", 0);
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+		assertTrue(elementos.size() == 5);
+		PO_AddOfferView.navigate(driver,
+				"//td[contains(text(), 'Oferta A1')]/following-sibling::*/a[contains(@href, 'offer/delete')]", 0);
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size() == 4);
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Oferta A1", PO_View.getTimeout());
+	}
+
+	// Borrar ultima oferta
+	@Test
+	public void Prueba20() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/list')]", 0);
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
+				PO_View.getTimeout());
+		assertTrue(elementos.size() == 4);
+		PO_AddOfferView.navigate(driver,
+				"//td[contains(text(), 'Oferta A3')]/following-sibling::*/a[contains(@href, 'offer/delete')]", 0);
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size() == 3);
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Oferta A3", PO_View.getTimeout());
 	}
 }
