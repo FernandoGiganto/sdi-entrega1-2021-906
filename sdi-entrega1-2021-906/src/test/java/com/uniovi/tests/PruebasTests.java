@@ -18,7 +18,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.uniovi.tests.pageObjects.PO_AddOfferView;
 import com.uniovi.tests.pageObjects.PO_HomeView;
 import com.uniovi.tests.pageObjects.PO_LoginView;
-import com.uniovi.tests.pageObjects.PO_NavView;
 import com.uniovi.tests.pageObjects.PO_Properties;
 import com.uniovi.tests.pageObjects.PO_RegisterView;
 import com.uniovi.tests.pageObjects.PO_UserList;
@@ -320,4 +319,26 @@ public class PruebasTests {
 		PO_View.checkElement(driver, "text", "Oferta B3");
 		PO_View.checkElement(driver, "text", "Oferta B2");
 	}
+	
+	//Visualizar 4 paginas haciendo cambio español/ingles
+	@Test
+	public void Prueba27() {
+		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/add')]", 0);
+		PO_HomeView.checkChangeIdiomAddOffer(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'user-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'user/list')]", 0);
+		PO_HomeView.checkChangeIdiomUserList(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+	}
+	
 }
