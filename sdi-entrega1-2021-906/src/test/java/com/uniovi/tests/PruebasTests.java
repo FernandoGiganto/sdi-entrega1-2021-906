@@ -166,7 +166,8 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
 		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
-		// FALTA
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertTrue(elementos.size() == 7);
 	}
 
 	// Dar de la alta nueva oferta con datos validos
