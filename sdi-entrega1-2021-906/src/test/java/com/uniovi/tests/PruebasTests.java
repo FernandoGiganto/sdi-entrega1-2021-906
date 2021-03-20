@@ -1,6 +1,6 @@
 package com.uniovi.tests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public class PruebasTests {
 
 	// Registro de Usuario con datos válidos
 	@Test
-	public void Prueba1() {
+	public void Prueba01() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "prueba1@gmail.com", "Josefo", "Perez", "77777", "77777");
 		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
@@ -78,7 +78,7 @@ public class PruebasTests {
 
 	// Registro de Usuario con datos inválidos
 	@Test
-	public void Prueba2() {
+	public void Prueba02() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "", "", "", "", "");
 		PO_RegisterView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
@@ -86,7 +86,7 @@ public class PruebasTests {
 
 	// Registro de Usuario con error en passwordConfirm
 	@Test
-	public void Prueba3() {
+	public void Prueba03() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "prueba1@gmail.com", "Josefo", "Perez", "77777", "fallo");
 		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence.message",
@@ -95,7 +95,7 @@ public class PruebasTests {
 
 	// Registro de Usuario con error coincidencia del emial
 	@Test
-	public void Prueba4() {
+	public void Prueba04() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, "admin@gmail.com", "Josefo", "Perez", "77777", "77777");
 		PO_RegisterView.checkKey(driver, "Error.signup.email.duplicate.message", PO_Properties.getSPANISH());
@@ -103,7 +103,7 @@ public class PruebasTests {
 
 	// Inicio de sesion como admin valido
 	@Test
-	public void Prueba5() {
+	public void Prueba05() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
 		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
@@ -112,7 +112,7 @@ public class PruebasTests {
 
 	// Inicio de sesion como usuario valido
 	@Test
-	public void Prueba6() {
+	public void Prueba06() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_View.checkElement(driver, "text", "Esta es una zona privada la web");
@@ -121,7 +121,7 @@ public class PruebasTests {
 
 	// Inicio de sesion como usuario invalido, vacio
 	@Test
-	public void Prueba7() {
+	public void Prueba07() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "", "");
 		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
@@ -130,7 +130,7 @@ public class PruebasTests {
 
 	// Inicio de sesion como usuario invalido, constraseña incorrecta
 	@Test
-	public void Prueba8() {
+	public void Prueba08() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "fallo");
 		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
@@ -139,7 +139,7 @@ public class PruebasTests {
 
 	// Inicio de sesion como usuario invalido, email no existente
 	@Test
-	public void Prueba9() {
+	public void Prueba09() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "fallo", "fallo");
 		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
@@ -260,7 +260,7 @@ public class PruebasTests {
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 				PO_View.getTimeout());
 		assertTrue(elementos.size() == 5);
-		PO_AddOfferView.navigate(driver,"//a[contains(@class, 'page-link')]", 1);
+		PO_AddOfferView.navigate(driver, "//a[contains(@class, 'page-link')]", 1);
 	}
 
 	// Hacer una busqueda con el campo no existente y no se muestran ofertas
@@ -269,47 +269,54 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_UserList.fillForm(driver, "fallando");
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody",
-				PO_View.getTimeout()); //al ser en tbody todavia queda un WebElement
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody", PO_View.getTimeout()); // al
+																														// ser
+																														// en
+																														// tbody
+																														// todavia
+																														// queda
+																														// un
+																														// WebElement
 		assertTrue(elementos.size() == 1);
-		PO_AddOfferView.navigate(driver,"//a[contains(@class, 'page-link')]", 1);
+		PO_AddOfferView.navigate(driver, "//a[contains(@class, 'page-link')]", 1);
 	}
-	
-	//Comprar una oferta que deje un saldo positivo.Comprobar saldo
+
+	// Comprar una oferta que deje un saldo positivo.Comprobar saldo
 	@Test
 	public void Prueba23() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
-		PO_AddOfferView.navigate(driver,"//td[contains(text(), 'Oferta B3')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+		PO_AddOfferView.navigate(driver,
+				"//td[contains(text(), 'Oferta B3')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
 		PO_View.checkElement(driver, "text", "Vendido");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
 		PO_View.checkElement(driver, "text", "78.0");
-		
+
 	}
-	
-	//Comprar una oferta que deje un saldo 0.Comprobar saldo
+
+	// Comprar una oferta que deje un saldo 0.Comprobar saldo
 	@Test
 	public void Prueba24() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
-		PO_AddOfferView.navigate(driver,"//td[contains(text(), 'Oferta B2')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+		PO_AddOfferView.navigate(driver,
+				"//td[contains(text(), 'Oferta B2')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
 		PO_View.checkElement(driver, "text", "Vendido");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
 		PO_View.checkElement(driver, "text", "0.0");
-		
+
 	}
-	
-	//Comprar una oferta de precio superior al saldo
+
+	// Comprar una oferta de precio superior al saldo
 	@Test
 	public void Prueba25() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_View.checkElement(driver, "text", "No dinero suficiente");
-		
-		
+
 	}
-	
-	//Ir a ofertas compradas y que aparezcan
+
+	// Ir a ofertas compradas y que aparezcan
 	@Test
 	public void Prueba26() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -319,8 +326,8 @@ public class PruebasTests {
 		PO_View.checkElement(driver, "text", "Oferta B3");
 		PO_View.checkElement(driver, "text", "Oferta B2");
 	}
-	
-	//Visualizar 4 paginas haciendo cambio español/ingles
+
+	// Visualizar 4 paginas haciendo cambio español/ingles
 	@Test
 	public void Prueba27() {
 		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
@@ -333,12 +340,34 @@ public class PruebasTests {
 				PO_Properties.getENGLISH());
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
-		
+
 		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'user-menu')]/a", 0);
 		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'user/list')]", 0);
 		PO_HomeView.checkChangeIdiomUserList(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
 				PO_Properties.getENGLISH());
 	}
+
+	// Intentar acceder al listado de usuarios sin estar autentificado
+	@Test
+	public void Prueba28() {
+		driver.navigate().to(URL + "/user/list");
+		PO_View.checkElement(driver, "text", "Identifícate");
+	}
+
+	// Intentar acceder al listado de ofertas sin estar autentificado
+	@Test
+	public void Prueba29() {
+		driver.navigate().to(URL + "/offer/list");
+		PO_View.checkElement(driver, "text", "Identifícate");
+	}
 	
+	// Intentar acceder al listado de usuarios no siendo admin
+	@Test
+	public void Prueba30() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_View.checkElement(driver, "free", "//li[not(contains(@id, 'user-menu'))]/a");
+	}
+
 }
