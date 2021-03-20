@@ -27,7 +27,7 @@
 				<li id="offers-menu" class="dropdown" sec:authorize="hasRole('ROLE_USUARIO')">
 					<a class="dropdown-toggle" data-toggle="dropdown" th:text="#{nav.user.gestionOfertas.message}">Gestión de Ofertas<span class="caret"></span> </a>
 					<ul class="dropdown-menu" >
-						<li >
+						<li id="offer-add">
 							<a href="/offer/add" th:text="#{nav.user.nuevaOferta.message}"></a>
 						</li>
 						<li>

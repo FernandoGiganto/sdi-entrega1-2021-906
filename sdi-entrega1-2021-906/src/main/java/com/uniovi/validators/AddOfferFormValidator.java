@@ -21,7 +21,6 @@ public class AddOfferFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		Offer offer = (Offer) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "Error.empty.message");
-		
 		if(offer.getPrice() < 0)
 			errors.rejectValue("price", "Error.add.price.message");
 		

@@ -10,6 +10,7 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.uniovi.tests.pageObjects.PO_AddOfferView;
 import com.uniovi.tests.pageObjects.PO_HomeView;
 import com.uniovi.tests.pageObjects.PO_LoginView;
 import com.uniovi.tests.pageObjects.PO_Properties;
@@ -138,8 +139,8 @@ public class PruebasTests {
 		PO_View.checkElement(driver, "text", "El usuario o la contraseña no existen");
 
 	}
-	
-	//Hacer logout y redirige a la pagina de login
+
+	// Hacer logout y redirige a la pagina de login
 	@Test
 	public void Prueba10() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -147,11 +148,43 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
-	
-	//Comprobar que el btn de logout no aparece si no estas autentificado
+
+	// Comprobar que el btn de logout no aparece si no estas autentificado
 	@Test
 	public void Prueba11() {
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver,"//li[contains(@id, 'logout')]/a",PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "//li[contains(@id, 'logout')]/a", PO_View.getTimeout());
+	}
+
+	// Mostrar el listado de usarios y comprobar que se muestran todos
+	@Test
+	public void Prueba12() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
+		// FALTA
+	}
+
+	// Dar de la alta nueva oferta con datos validos
+	@Test
+	public void Prueba16() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/add')]", 0);
+		PO_AddOfferView.fillForm(driver, "tituloTest", "DescripcionTituloTest", "1000.0");
+		PO_View.checkElement(driver, "text", "tituloTest");
+	}
+
+	// Dar de la alta nueva oferta con datos invalidos -> titulo vacio
+	@Test
+	public void Prueba17() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
+		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
+		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/add')]", 0);
+		PO_AddOfferView.fillForm(driver, "", "DescripcionTituloTest", "1000.0");
+		PO_AddOfferView.checkKey(driver, "Error.empty.message", PO_Properties.getSPANISH());
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Mis Ofertas",PO_View.getTimeout());
 		
 	}
 }

@@ -57,15 +57,25 @@ public class OffersController {
 	}
 
 	@RequestMapping(value = "/offer/add", method = RequestMethod.POST)
-	public String setOffer(@Validated Offer offer,BindingResult result) {
-		addOfferFormValidator.validate(offer, result);
-		if(result.hasErrors())
-			return "/offer/add";
-		offer.setDischarge_date(LocalDate.now());
+	public String setOffer(Model model,@Validated Offer offer,BindingResult result) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		User activeUser = usersService.getUserByEmail(email);
+		addOfferFormValidator.validate(offer, result);
+		
+		if(result.hasErrors()) {
+			 auth = SecurityContextHolder.getContext().getAuthentication();
+			 email = auth.getName();
+			 activeUser = usersService.getUserByEmail(email);
+			model.addAttribute("activeUser", activeUser);
+			return "/offer/add";
+		}
+			
+		
+		offer.setDischarge_date(LocalDate.now());
+		
+		
 	
 		offer.setUser(activeUser);
 		offersService.addOffer(offer);
