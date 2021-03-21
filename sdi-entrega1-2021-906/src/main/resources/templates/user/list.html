@@ -29,13 +29,13 @@
 							<td th:text="${user.name}"></td>
 							<td th:text="${user.surname}"></td>
 							 <td>
-							 	<input type="checkbox" th:if="${!user.admin}" th:name=idChk th:value="${user.id}"   > 
+							 	<input type="checkbox" class="checkbox" th:if="${!user.admin}" th:name=idChk th:value="${user.id}"   > 
 							 	
 							 </td>
 						</tr>
 					</tbody>
 			</table>
-			<button type="submit" class="btn btn-primary" th:text="#{user.list.deleteUsers.message}"></button>
+			<button type="submit" class="btn btn-primary" id="btDelete" th:text="#{user.list.deleteUsers.message}"></button>
 			</form>
 		</div>
 		

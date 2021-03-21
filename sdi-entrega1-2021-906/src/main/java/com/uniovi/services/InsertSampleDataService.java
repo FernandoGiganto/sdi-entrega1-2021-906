@@ -24,7 +24,7 @@ public class InsertSampleDataService {
 	@SuppressWarnings({ "serial", "rawtypes", "unchecked" })
 	@PostConstruct
 	public void init() {
-		User user1= new User("pedrodiaz@gmail.com", "Pedro", "Díaz");
+		User user1= new User("pelayovaldes@gmail.com", "Pelayo", "Valdes");
 		user1.setPassword("123456");
 		user1.setRole(rolesService.getRoles()[0]);
 		User user2= new User("lucasnuñez@gmail.com", "Lucas", "Núñez");
@@ -36,22 +36,24 @@ public class InsertSampleDataService {
 		User user4= new User("martaalmonte@gmail.com", "Marta", "Almonte");
 		user4.setPassword("123456");
 		user4.setRole(rolesService.getRoles()[0]);
-		User user5= new User("pelayovaldes@gmail.com", "Pelayo", "Valdes");
+		User user5= new User("pedrodiaz@gmail.com", "Pedro", "Díaz");
 		user5.setPassword("123456");
 		user5.setRole(rolesService.getRoles()[0]);
 		User user6= new User("admin@gmail.com", "Fernando", "Giganto",true);
 		user6.setPassword("admin");
 		user6.setRole(rolesService.getRoles()[1]);
-		
-		Set user1Offers = new HashSet<Offer>() {
+		User user7= new User("manolin@gmail.com", "Mano", "Lin");
+		user7.setPassword("123456");
+		user7.setRole(rolesService.getRoles()[0]);
+		Set user5Offers = new HashSet<Offer>() {
 			{
-				add(new Offer("Oferta A1","descripcion de la oferta A1",15.0,LocalDate.now(),user1));
-				add(new Offer("Oferta A2","descripcion de la oferta A2",5.00,LocalDate.now(),user1));
-				add(new Offer("Oferta A3","descripcion de la oferta A3",50.00,LocalDate.now(),user1));
-				add(new Offer("Oferta A4","descripcion de la oferta A4",15.99,LocalDate.now(),user1));
+				add(new Offer("Oferta A1","descripcion de la oferta A1",15.0,LocalDate.now(),user5));
+				add(new Offer("Oferta A2","descripcion de la oferta A2",5.00,LocalDate.now(),user5));
+				add(new Offer("Oferta A3","descripcion de la oferta A3",50.00,LocalDate.now(),user5));
+				add(new Offer("Oferta A4","descripcion de la oferta A4",15.99,LocalDate.now(),user5));
 			}
 		};
-		user1.setOffers(user1Offers);
+		user5.setOffers(user5Offers);
 		
 		Set user2Offers = new HashSet<Offer>() {
 			{
@@ -83,15 +85,26 @@ public class InsertSampleDataService {
 		};
 		user4.setOffers(user4Offers);
 		
-		Set user5Offers = new HashSet<Offer>() {
+		Set user1Offers = new HashSet<Offer>() {
 			{
-				add(new Offer("Oferta E1","descripcion de la oferta E1",5.10,LocalDate.now(),user5));
-				add(new Offer("Oferta E2","descripcion de la oferta E2",12.0,LocalDate.now(),user5));
-				add(new Offer("Oferta E3","descripcion de la oferta E3",22.20,LocalDate.now(),user5));
-				add(new Offer("Oferta E4","descripcion de la oferta E4",9.99,LocalDate.now(),user5));
+				add(new Offer("Oferta E1","descripcion de la oferta E1",5.10,LocalDate.now(),user1));
+				add(new Offer("Oferta E2","descripcion de la oferta E2",12.0,LocalDate.now(),user1));
+				add(new Offer("Oferta E3","descripcion de la oferta E3",22.20,LocalDate.now(),user1));
+				add(new Offer("Oferta E4","descripcion de la oferta E4",9.99,LocalDate.now(),user1));
 			}
 		};
-		user5.setOffers(user5Offers);
+		user1.setOffers(user1Offers);
+		
+		Set user7Offers = new HashSet<Offer>() {
+			{
+				add(new Offer("Oferta F1","descripcion de la oferta F1",100.0,LocalDate.now(),user7));
+				add(new Offer("Oferta F2","descripcion de la oferta F2",50.0,LocalDate.now(),user7));
+				add(new Offer("Oferta F3","descripcion de la oferta F3",50.0,LocalDate.now(),user7));
+				add(new Offer("Oferta F4","descripcion de la oferta F4",999.0,LocalDate.now(),user7));
+				add(new Offer("Oferta F5","descripcion de la oferta F5",25.0,LocalDate.now(),user7));
+			}
+		};
+		user7.setOffers(user7Offers);
 		
 		usersService.addUser(user1);
 		usersService.addUser(user2);
@@ -99,6 +112,7 @@ public class InsertSampleDataService {
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
+		usersService.addUser(user7);
 	}
 
 }

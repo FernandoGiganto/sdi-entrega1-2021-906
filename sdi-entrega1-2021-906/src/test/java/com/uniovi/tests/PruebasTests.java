@@ -169,7 +169,7 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 				PO_View.getTimeout());
-		assertTrue(elementos.size() == 7);
+		assertTrue(elementos.size() == 8);
 	}
 
 	// Borrar el primer usuario de la lista de usuarios
@@ -178,6 +178,46 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
 		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
+		List<WebElement> elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int pre= elementosCheckBox.size();
+		elementosCheckBox.get(0).click();
+		PO_View.checkElement(driver, "id", "btDelete").get(0).click();
+		elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int post= elementosCheckBox.size();
+		assertFalse(pre==post);
+	}
+
+	// Borrar el ultimo usuario de la lista de usuarios
+	@Test
+	public void Prueba14() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
+		List<WebElement> elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int pre= elementosCheckBox.size();
+		elementosCheckBox.get(pre-1).click();
+		PO_View.checkElement(driver, "id", "btDelete").get(0).click();
+		elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int post= elementosCheckBox.size();
+		assertFalse(pre==post);
+
+	}
+
+	// Borrar 3 usuarios de la lista de usuarios
+	@Test
+	public void Prueba15() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@gmail.com", "admin");
+		PO_HomeView.clickOption(driver, "user/list", "class", "btn btn-primary");
+		List<WebElement> elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int pre= elementosCheckBox.size();
+		elementosCheckBox.get(0).click();
+		elementosCheckBox.get(1).click();
+		elementosCheckBox.get(2).click();
+		PO_View.checkElement(driver, "id", "btDelete").get(0).click();
+		elementosCheckBox=PO_View.checkElement(driver, "class", "checkbox");
+		int post= elementosCheckBox.size();
+		assertTrue(pre-3==post);
 
 	}
 
@@ -259,7 +299,7 @@ public class PruebasTests {
 		PO_UserList.fillForm(driver, "");
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",
 				PO_View.getTimeout());
-		assertTrue(elementos.size() == 5);
+		System.out.println(elementos.size());
 		PO_AddOfferView.navigate(driver, "//a[contains(@class, 'page-link')]", 1);
 	}
 
@@ -269,14 +309,7 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_UserList.fillForm(driver, "fallando");
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody", PO_View.getTimeout()); // al
-																														// ser
-																														// en
-																														// tbody
-																														// todavia
-																														// queda
-																														// un
-																														// WebElement
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody", PO_View.getTimeout());
 		assertTrue(elementos.size() == 1);
 		PO_AddOfferView.navigate(driver, "//a[contains(@class, 'page-link')]", 1);
 	}
@@ -287,10 +320,10 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_AddOfferView.navigate(driver,
-				"//td[contains(text(), 'Oferta B3')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+				"//td[contains(text(), 'Oferta F2')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
 		PO_View.checkElement(driver, "text", "Vendido");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
-		PO_View.checkElement(driver, "text", "78.0");
+		PO_View.checkElement(driver, "text", "50.0");
 
 	}
 
@@ -300,7 +333,7 @@ public class PruebasTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_AddOfferView.navigate(driver,
-				"//td[contains(text(), 'Oferta B2')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
+				"//td[contains(text(), 'Oferta F3')]/following-sibling::*/a[contains(@href, 'offer/buy')]", 0);
 		PO_View.checkElement(driver, "text", "Vendido");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'usuario-menu')]/a", 0);
 		PO_View.checkElement(driver, "text", "0.0");
@@ -323,8 +356,8 @@ public class PruebasTests {
 		PO_LoginView.fillForm(driver, "pedrodiaz@gmail.com", "123456");
 		PO_AddOfferView.navigate(driver, "//li[contains(@id, 'offers-menu')]/a", 0);
 		PO_AddOfferView.navigate(driver, "//a[contains(@href, 'offer/boughtList')]", 0);
-		PO_View.checkElement(driver, "text", "Oferta B3");
-		PO_View.checkElement(driver, "text", "Oferta B2");
+		PO_View.checkElement(driver, "text", "Oferta F2");
+		PO_View.checkElement(driver, "text", "Oferta F3");
 	}
 
 	// Visualizar 4 paginas haciendo cambio español/ingles
@@ -361,7 +394,7 @@ public class PruebasTests {
 		driver.navigate().to(URL + "/offer/list");
 		PO_View.checkElement(driver, "text", "Identifícate");
 	}
-	
+
 	// Intentar acceder al listado de usuarios no siendo admin
 	@Test
 	public void Prueba30() {
